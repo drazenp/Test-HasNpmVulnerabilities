@@ -1,30 +1,30 @@
 function Test-HasNpmVulnerabilities {
    <#
-.SYNOPSIS
-    Returns a list of services that are set to start automatically, are not
-    currently running, excluding the services that are set to delayed start.
+   .SYNOPSIS
+      Returns a flag indicating if npm packages have vulnerabilities based on criteria.
 
-.DESCRIPTION
-    Get-MrAutoStoppedService is a function that returns a list of services from
-    the specified remote computer(s) that are set to start automatically, are not
-    currently running, and it excludes the services that are set to start automatically
-    with a delayed startup.
+   .DESCRIPTION
+      Test-HasNpmVulnerabilities is a function that analyses npm audit results and 
+      checks if npm packages are vulnerable by comparing the number of vulnerabilities
+      with a number of allowed vulnerabilities per level.
 
-.PARAMETER ComputerName
-    The remote computer(s) to check the status of the services on.
+   .PARAMETER Audit
+      The result of npm audit command.
 
-.PARAMETER Credential
-    Specifies a user account that has permission to perform this action. The default
-    is the current user.
+   .PARAMETER Low
+      Number of allowed low vulnerabilities. Not checked if not specified.
 
-.EXAMPLE
-     Get-MrAutoStoppedService -ComputerName 'Server1', 'Server2'
+   .PARAMETER Moderate
+      Number of allowed moderate vulnerabilities. Not checked if not specified.
 
-.EXAMPLE
-     'Server1', 'Server2' | Get-MrAutoStoppedService
+   .PARAMETER High
+      Number of allowed high vulnerabilities. Not checked if not specified.
 
-.EXAMPLE
-     Get-MrAutoStoppedService -ComputerName 'Server1' -Credential (Get-Credential)
+   .PARAMETER Critical
+      Number of allowed critical vulnerabilities. Not checked if not specified.
+
+   .EXAMPLE
+      Test-HasNpmVulnerabilities -Audit 'found 9 vulnerabilities (2 low, 6 high, 1 critical)' -Low 2 -High 6 -Critical 0
 #>
 
    param (
